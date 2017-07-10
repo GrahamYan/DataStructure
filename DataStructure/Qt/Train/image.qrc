@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>pictures/班徽.png</file>
+        <file>pictures/喜洋洋.jpg</file>
+        <file>pictures/泰哥.jpg</file>
+        <file>pictures/灰太狼.jpg</file>
+        <file>pictures/1413771271633.jpg</file>
+        <file>pictures/穹.jpg</file>
+        <file>pictures/村长.jpg</file>
+    </qresource>
+</RCC>

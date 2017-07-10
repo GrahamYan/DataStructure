@@ -1,0 +1,42 @@
+
+    QStandardItemModel *student_model = new QStandardItemModel();
+    student_model->setHorizontalHeaderItem(0, new QStandardItem(QObject::tr("Name")));
+    student_model->setHorizontalHeaderItem(1, new QStandardItem(QObject::tr("NO.")));
+    student_model->setHorizontalHeaderItem(2, new QStandardItem(QObject::tr("Sex")));
+    student_model->setHorizontalHeaderItem(3, new QStandardItem(QObject::tr("Age")));
+    student_model->setHorizontalHeaderItem(4, new QStandardItem(QObject::tr("College")));
+    //利用setModel()方法将数据模型与QTableView绑定
+    ui->tableView->setModel(student_model);
+
+    //ui->tableView->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
+   // ui->tableView->horizontalHeader()->setResizeMode(1, QHeaderView::Fixed);
+    //ui->tableView->horizontalHeader()->setResizeMode(2, QHeaderView::Fixed);
+    //ui->tableView->horizontalHeader()->setResizeMode(3, QHeaderView::Fixed);
+   // ui->tableView->horizontalHeader()->setResizeMode(4, QHeaderView::Fixed);
+    //设置表格的各列的宽度值
+    ui->tableView->setColumnWidth(0,100);
+    ui->tableView->setColumnWidth(1,100);
+    ui->tableView->setColumnWidth(2,100);
+    ui->tableView->setColumnWidth(3,100);
+    ui->tableView->setColumnWidth(4,100);
+    //默认显示行头，如果你觉得不美观的话，我们可以将隐藏
+    ui->tableView->verticalHeader()->hide();
+    //设置选中时为整行选中
+    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    //设置表格的单元为只读属性，即不能编辑
+    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //如果你用在QTableView中使用右键菜单，需启用该属性
+    ui->tableView->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    student_model->setItem(0, 0, new QStandardItem("张三"));
+    student_model->setItem(0, 1, new QStandardItem("20120202"));
+    student_model->setItem(0, 2, new QStandardItem("男"));
+    student_model->setItem(0, 3, new QStandardItem("18"));
+    student_model->setItem(0, 4, new QStandardItem("土木学院"));
+
+    student_model->setItem(1, 0, new QStandardItem("李四"));
+    student_model->setItem(1, 1, new QStandardItem("20160303"));
+    student_model->setItem(1, 2, new QStandardItem("女"));
+    student_model->setItem(1, 3, new QStandardItem("19"));
+    student_model->setItem(1, 4, new QStandardItem("复旦大学"));

@@ -1,0 +1,105 @@
+#include<iostream>
+#include<cstdlib>
+#include<cstdio>
+#include"lib/vector.hpp"
+#include"lib/ptr.hpp"
+#include"Station.hpp"
+#include"Date.hpp"
+
+using namespace sjtu;
+using std::cout;
+using std::endl;
+
+int main()
+{
+	// vector < Station::Node > vec;
+	// vec.push_back(Station::Node(2.00,"一等座",10));
+	// vec.push_back(Station::Node(4.00,"商务座",5));
+	// vec.push_back(Station::Node(1.00,"无座",50));
+	// vec.push_back(Station::Node(1.50,"硬座",20));
+	// vec.push_back(Station::Node(6.00,"特等座",0));
+	// vec.push_back(Station::Node(5.00,"二等座",15));
+	// vec.push_back(Station::Node(8.00,"硬卧下",15));
+	// vec.push_back(Station::Node(9.00,"软卧下",12));
+	// vec.push_back(Station::Node(11.00,"软座",13));
+	// vec.push_back(Station::Node(11.50,"高级软卧",14));
+	// // Station s("jzh",Date::current_time(),Date("2017-05-08,15:30"),vec,50000);
+	vector <string> _type; vector <double> _price;
+	_type.push_back("一等座");
+	_type.push_back("商务座");
+	_type.push_back("无座");
+	_type.push_back("硬座");
+	_type.push_back("特等座");
+	_type.push_back("二等座");
+	_type.push_back("硬卧下");
+	_type.push_back("软卧下");
+	_type.push_back("软座");
+	_type.push_back("高级软卧");
+
+	_price.push_back(2);
+	_price.push_back(4);
+	_price.push_back(1);
+	_price.push_back(1.5);
+	_price.push_back(6);
+	_price.push_back(5);
+	_price.push_back(8);
+	_price.push_back(9);
+	_price.push_back(11);
+	_price.push_back(11.5);
+	
+	// shared_ptr < Station > p = new Station("金之涵",Date::current_time(),Date("2017-05-08,15:30"),vec,50000);
+	shared_ptr < Station > p = new Station("金之涵",Date::current_time(),Date("2017-05-08,15:30"),_type,_price,50000);
+
+	cout << p->query_location() << endl;
+	cout << (p->query_arrival_time()).print() << endl;
+	cout << (p->query_departure_time()).print() << endl;
+	cout << (p->query_single_number("无座")) << endl;
+	try {cout << (p->query_single_number("特等座")) << endl;}
+	catch(Exception ex) { cout << ex.detail << endl; }
+	cout << (p->query_single_price("无座")) << endl;
+	try {cout << (p->query_single_price("特等座")) << endl;}
+	catch(Exception ex) { cout << ex.detail << endl; }
+
+	vector <string> r1,r2;
+	r1.push_back("一等座"),r1.push_back("商务座");
+	r2.push_back("一等座 "),r2.push_back("商务座");
+	try
+	{
+		vector <double> t1 = p->query_specified_price(r1);
+		for (auto it = t1.begin();it != t1.end();++it) cout << *it << ' ';
+		cout << endl;
+	}
+	catch(Exception ex) { cout << ex.detail << endl; }
+	try
+	{
+		vector <double> t2 = p->query_specified_price(r2);
+		for (auto it = t2.begin();it != t2.end();++it) cout << *it << ' ';
+		cout << endl;
+	}
+	catch(Exception ex) { cout << ex.detail << endl; }
+
+	if (p->is_same_location("jzh")) puts("yes"); else puts("no");
+	if (p->is_same_location("zzh")) puts("yes"); else puts("no");
+	if (p->is_same_location("lmy")) puts("yes"); else puts("no");
+	if (p->is_same_location("金之之")) puts("yes"); else puts("no");
+
+	try
+	{
+		p->modify_number("特等座",-2000);
+		cout << p->query_single_number("特等座") << endl;
+	}
+	catch(Exception ex) { cout << ex.detail << endl; }
+	try
+	{
+		p->modify_number("特等座 ",-10);
+		cout << p->query_single_number("特等座 ") << endl;
+	}
+	catch(Exception ex) { cout << ex.detail << endl; }
+	try
+	{
+		p->modify_number("特等座",-10);
+		cout << p->query_single_number("特等座") << endl;
+	}
+	catch(Exception ex) { cout << ex.detail << endl; }
+	return 0;
+}
